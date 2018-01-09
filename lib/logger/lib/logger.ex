@@ -159,13 +159,6 @@ defmodule Logger do
       in Erlang syntax until the Logger application kicks in and
       uninstalls SASL's logger in favor of its own. Defaults to `false`.
 
-    * `:discard_threshold_for_error_logger` - a value that, when
-      reached, triggers the error logger to discard messages. This
-      value must be a positive number that represents the maximum
-      number of messages accepted per second. Once above this
-      threshold, the [`:error_logger`](http://erlang.org/doc/man/error_logger.html)
-      enters discard mode for the remainder of that second. Defaults to 500 messages.
-
   For example, to configure `Logger` to redirect all [`:error_logger`](http://erlang.org/doc/man/error_logger.html)
   messages using a `config/config.exs` file:
 
@@ -600,7 +593,7 @@ defmodule Logger do
         %{mode: mode, truncate: truncate, level: min_level, utc_log: utc_log?} =
           Logger.Config.__data__()
 
-        if compare_levels(level, min_level) != :lt do
+        if compare_levels(level, min_level) != :lt and mode != :discard do
           metadata = [pid: self()] ++ Keyword.merge(pdict, metadata)
           {message, metadata} = normalize_message(chardata_or_fun, metadata)
           truncated = truncate(message, truncate)

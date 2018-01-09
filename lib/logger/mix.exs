@@ -20,11 +20,11 @@ defmodule Logger.MixProject do
         backends: [:console],
         translators: [{Logger.Translator, :translate}],
         sync_threshold: 20,
+        discard_threshold: 10000,
         handle_otp_reports: true,
         handle_sasl_reports: false,
         compile_time_purge_level: :debug,
         compile_time_application: nil,
-        discard_threshold_for_error_logger: 500,
         translator_inspect_opts: [],
         console: []
       ]

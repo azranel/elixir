@@ -7,7 +7,7 @@ defmodule Logger.App do
   def start(_type, _args) do
     otp_reports? = Application.get_env(:logger, :handle_otp_reports)
     sasl_reports? = Application.get_env(:logger, :handle_sasl_reports)
-    threshold = Application.get_env(:logger, :discard_threshold_for_error_logger)
+    threshold = Application.get_env(:logger, :discard_threshold)
     error_handler = {:error_logger, Logger.ErrorHandler, {otp_reports?, sasl_reports?, threshold}}
 
     children = [
